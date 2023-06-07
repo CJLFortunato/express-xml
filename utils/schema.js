@@ -1,6 +1,6 @@
 import Joi from 'joi';
 
-export const schema = Joi.object({
+export const schemaPointRelais = Joi.object({
     Enseigne: Joi.string().length(8).pattern(new RegExp('^[0-9A-Z]{2}[0-9A-Z]{6}$')).required(),
     Pays: Joi.string().length(2).pattern(new RegExp('^[A-Za-z]{2}$')).required(),
     NumPointRelais: Joi.string().pattern(new RegExp('^[0-9]{6}$')).length(6),
