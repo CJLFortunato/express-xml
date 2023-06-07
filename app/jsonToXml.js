@@ -6,37 +6,37 @@ app.use(express.json())
 
 app.post('/api/v1/magasins', (req, res) => {
 
-    let securityKey = md5(req.body.enseigne 
-                            + req.boby.pays 
-                            + req.body.cp
-                            + req.body.taille
-                            + req.body.poids
-                            + req.body.action
-                            + req.body.privateKey).toUpperCase();
+    let body = req.body;
+
+    let securityKey = md5(body.enseigne 
+                            + body.pays 
+                            + body.cp
+                            + body.privateKey).toUpperCase();
 
     const config = {
         headers: {
-          'Content-Type': 'application/xml'
+          'Content-Type': 'text/xml'
         }
       };
+
+    //   let tempComptent = [];
+    //   Object.keys(body).forEach(key => tempComptent.push(`<${key}>${body[key]}</${key}`));
+    //   tempComptent.join('')
 
       const xmlBody = `<?xml version="1.0" encoding="utf-8"?>
                         <soap:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
                         <soap:Body>
                             <WSI4_PointRelais_Recherche xmlns="http://www.mondialrelay.fr/webservice/">
-                            <Enseigne>${req.body.enseigne}</Enseigne>
-                            <Pays>${req.body.pays}</Pays>
-                            <CP>${req.body.cp}</CP>
-                            <Taille>${req.body.taille}</Taille>
-                            <Poids>${req.body.poids}</Poids>
-                            <Action>${req.body.action}</Action>
+                            <Enseigne>${body.enseigne}</Enseigne>
+                            <Pays>${body.pays}</Pays>
+                            <CP>${body.cp}</CP>
                             <Security>${securityKey}</Security>
                             </WSI4_PointRelais_Recherche>
                         </soap:Body>
                         </soap:Envelope>`
 
-    console.log(xmlBody);
-    res.status(201).send(req.body);
+    // console.log(xmlBody);
+   res.send(xmlBody);
 });
 
 app.listen(4000, () => console.log('Listenning on port 4000...'));
