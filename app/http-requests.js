@@ -3,16 +3,17 @@ import fetch from 'node-fetch';
 
 // ------------- error ----------------------
 
-function errorHandling(err){
-    console.log("ERROR")
-    console.log(err)
-    console.log("ERROR")
-    return err.status
+function errorHandling(status){
+    console.log("ERROR : " + status)
+    if (status = 500){
+        console.error("Internal Server Error")// when body is wrong or ... a completer
+    }
+    return status
 }
 
 // ------------- default values -------------------
 
-const baseUrl = "http://api.mondialrelay.com/Web_Services.asmx" + "?"
+const baseUrl = "http://api.mondialrelay.com/Web_Services.asmx"
 function addToBaseUrl(urlSection){ return baseUrl + "?op=" + urlSection}
 
 const header = {
@@ -35,13 +36,19 @@ export async function postRequest(body, urlSection){
 
     let requestData
     return await fetch(url,params)
-    .then(async data => {                        // reception des données
-        console.log("working ########################")
-        requestData = await data.text()
+    .then(async data => {                           // reception des données
+        console.log("working ##################")
+        console.log(data)
+        const status = data.status
+        if (status === 200){
+            requestData = await data.text()
+        } else { // upon failure
+            requestData = errorHandling(status)
+        }
     })
-   .then(res => {                                // upon completion
-        console.log("working & complete ############")
+   .then(res => {                                   // upon completion
+        console.log("END of POST ############")
         return requestData
     })                       
-   .catch(err => {return errorHandling(err)})    // upon failure
+   .catch(err => console.error("POST catch error")) // upon failure
 }
