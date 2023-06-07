@@ -2,19 +2,19 @@ import express from 'express';
 import Joi from 'joi';
 
 import {
-  schema
+  schemaPointRelais
 } from './utils/schema.js';
 
 const app = express();
 app.use(express.json());
 
-app.post('/', (req, res) => {
+app.post('/json_pointrelais_recherche', (req, res) => {
   const {
     body
   } = req;
 
   try {
-    Joi.assert(body, schema);
+    Joi.assert(body, schemaPointRelais);
     res.send(body);
   } catch (e) {
 
