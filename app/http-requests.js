@@ -23,7 +23,7 @@ const header = {
 
 // --------------- mondial relay request --------------------
 
-export async function postRequest(body, urlSection){
+export function postRequest(body, urlSection){
     
     const url = addToBaseUrl(urlSection);
     const params = {
@@ -35,20 +35,30 @@ export async function postRequest(body, urlSection){
     console.log(params)
 
     let requestData
-    return await fetch(url,params)
-    .then(async data => {                           // reception des données
+    return fetch(url,params)
+    .then(data => {                           // reception des données
         console.log("working ##################")
-        console.log(data)
+        //console.log(data)
         const status = data.status
         if (status === 200){
-            requestData = await data.text()
+            data.text().then(res=>{
+                console.log("res")
+                console.log(res)
+                requestData = res
+                return res
+            }).catch(err=>{
+                requestData = err
+                return err
+            })
         } else { // upon failure
             requestData = errorHandling(status)
         }
     })
+    /*
    .then(res => {                                   // upon completion
         console.log("END of POST ############")
-        return requestData
-    })                       
+        console.log(requestData)
+        //return requestData
+    })*/     
    .catch(err => console.error("POST catch error")) // upon failure
 }
