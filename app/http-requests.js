@@ -36,7 +36,7 @@ export async function postRequest(body, urlSection){
 
     let requestData
     return await fetch(url,params)
-    .then(async data => {                        // reception des données
+    .then(async data => {                           // reception des données
         console.log("working ##################")
         console.log(data)
         const status = data.status
@@ -46,9 +46,9 @@ export async function postRequest(body, urlSection){
             requestData = errorHandling(status)
         }
     })
-   .then(res => {                                // upon completion
+   .then(res => {                                   // upon completion
         console.log("END of POST ############")
         return requestData
     })                       
-   .catch(err => console.error("POST catch error"))    // upon failure
+   .catch(err => console.error("POST catch error")) // upon failure
 }
