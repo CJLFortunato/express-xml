@@ -1,9 +1,6 @@
 import md5 from "md5" //const md5 = require('md5');
-const md5 = require('md5');
 
 export async function jsonToXml(body) {
-    
-    let body = req.body;
 
     let securityKey = md5(body.enseigne 
                             + body.pays 

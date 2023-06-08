@@ -1,3 +1,7 @@
-export const recherchePointsRelais = (req, res) => {
-    res.send(req.body);
+import {
+    postWSI4PointRelaisRecherche,
+} from "./requests.js";
+
+export const recherchePointsRelais = async (req, res) => {
+    res.send(await postWSI4PointRelaisRecherche(req.body));
 }
