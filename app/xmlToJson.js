@@ -1,4 +1,5 @@
-const convert = require("xml-js");
+//const convert = require("xml-js");
+import convert from "xml-js"
 // const fs = require("fs");
 
 let dataArr = [];
