@@ -3,6 +3,7 @@ const md5 = require('md5');
 
 
 function isNotErrorStatus(res){
+    console.log(res)
     if (typeof res != "number"){
         console.log("res not number : is xml")
         // ToDo : add conversion xml to json here
@@ -15,7 +16,9 @@ function isNotErrorStatus(res){
 
 export async function postWSI4PointRelaisRecherche(body){
     const urlSection = "WSI4_PointRelais_Recherche"
-    // Conversion JSON to XML here
+    
+    // ToDo : add conversion json to xml here
+    /*
     let body = req.body;
 
     let securityKey = md5(body.enseigne 
@@ -43,4 +46,8 @@ export async function postWSI4PointRelaisRecherche(body){
     
     
     return isNotErrorStatus(await postRequest(body, urlSection))
+    */
+    const result = await postRequest(body, urlSection)
+    return isNotErrorStatus(result)
 }
+

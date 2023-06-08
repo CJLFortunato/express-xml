@@ -30,24 +30,19 @@ export function postRequest(body, urlSection){
     console.log(url)
     console.log(params)
 
-    let requestPromise
     return fetch(url,params)
     .then(data => {                           // reception des données
         console.log("POST is working #######")
         const status = data.status
         if (status === 200){
-            requestPromise = data.text()
-                .then(res=>{ return res })
-                .catch(err=>{ return err })
-        } else { requestPromise = errorHandling(status) }
+            return data.text().then(res=>{ return res })
+        } else { return errorHandling(status) }
     })
-   .then(res => { // upon completion
+   .finally(res => { // upon completion
         console.log("END of POST ############")
-        return requestPromise
-    })    
+    })  
    .catch(err => { // upon failure
         console.error("POST catch error");
         return err.status
-        }
-    )
+    })
 }
