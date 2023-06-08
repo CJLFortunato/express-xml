@@ -38,10 +38,10 @@ export function postRequest(body, urlSection){
             return data.text().then(res=>{ return res })
         } else { return errorHandling(status) }
     })
-   .finally(res => { // upon completion
+    .finally(res => { // upon completion
         console.log("END of POST ############")
     })  
-   .catch(err => { // upon failure
+    .catch(err => { // upon failure
         console.error("POST catch error");
         return err.status
     })
