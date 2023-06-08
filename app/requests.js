@@ -17,20 +17,19 @@ function isNotErrorStatus(res){
 export async function postWSI4PointRelaisRecherche(body){
     const urlSection = "WSI4_PointRelais_Recherche"
     
-    // ToDo : add conversion json to xml here
-    /*
+    return isNotErrorStatus(await postRequest(body, urlSection))
+    const result = await postRequest(body, urlSection)
+    return isNotErrorStatus(result)
+}
+
+export async function jsonToXml(body) {
+    
     let body = req.body;
 
     let securityKey = md5(body.enseigne 
                             + body.pays 
                             + body.cp
                             + body.privateKey).toUpperCase();
-
-    const config = {
-        headers: {
-          'Content-Type': 'text/xml'
-        }
-      };
     
     const xmlBody = `<?xml version="1.0" encoding="utf-8"?>
                         <soap:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
@@ -43,11 +42,5 @@ export async function postWSI4PointRelaisRecherche(body){
                             </WSI4_PointRelais_Recherche>
                         </soap:Body>
                         </soap:Envelope>`
-    
-    
-    return isNotErrorStatus(await postRequest(body, urlSection))
-    */
-    const result = await postRequest(body, urlSection)
-    return isNotErrorStatus(result)
+    return xmlBody;
 }
-
