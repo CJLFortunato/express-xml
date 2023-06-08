@@ -3,13 +3,9 @@ import { jsonToXml } from "./jsonToXml.js"
 import { xmlToJson } from "./xmlToJson.js";
 
 function isNotErrorStatus(res) {
-  console.log(res);
   if (typeof res != "number") {
     console.log("res not number : is xml");
-    // ToDo : add conversion xml to json here
-    const result = xmlToJson(res);
-    console.log(result);
-    return res;
+    return xmlToJson(res);
   } else {
     console.log("res is number : is error status");
     return res;
