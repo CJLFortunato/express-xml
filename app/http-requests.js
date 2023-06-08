@@ -26,39 +26,23 @@ const header = {
 export function postRequest(body, urlSection){
     
     const url = addToBaseUrl(urlSection);
-    const params = {
-        method: 'POST',
-        headers: header,
-        body: body
-    }
+    const params = { method: 'POST', headers: header, body: body }
     console.log(url)
     console.log(params)
 
-    let requestData
     return fetch(url,params)
     .then(data => {                           // reception des données
-        console.log("working ##################")
-        //console.log(data)
+        console.log("POST is working #######")
         const status = data.status
         if (status === 200){
-            data.text().then(res=>{
-                console.log("res")
-                console.log(res)
-                requestData = res
-                return res
-            }).catch(err=>{
-                requestData = err
-                return err
-            })
-        } else { // upon failure
-            requestData = errorHandling(status)
-        }
+            return data.text().then(res=>{ return res })
+        } else { return errorHandling(status) }
     })
-    /*
-   .then(res => {                                   // upon completion
+    .finally(res => { // upon completion
         console.log("END of POST ############")
-        console.log(requestData)
-        //return requestData
-    })*/     
-   .catch(err => console.error("POST catch error")) // upon failure
+    })  
+    .catch(err => { // upon failure
+        console.error("POST catch error");
+        return err.status
+    })
 }
