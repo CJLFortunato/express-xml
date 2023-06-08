@@ -1,6 +1,5 @@
 import {postRequest} from "./http-requests.js";
 
-
 function isNotErrorStatus(res){
     console.log(res)
     if (typeof res != "number"){
@@ -15,10 +14,7 @@ function isNotErrorStatus(res){
 
 export async function postWSI4PointRelaisRecherche(body){
     const urlSection = "WSI4_PointRelais_Recherche"
-    
-    /*
-    return isNotErrorStatus(await postRequest(body, urlSection))
-    */
+    // ToDo : add conversion json to xml here
     const result = await postRequest(body, urlSection)
     return isNotErrorStatus(result)
 }
