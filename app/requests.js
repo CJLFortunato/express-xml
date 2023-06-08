@@ -16,6 +16,7 @@ function isNotErrorStatus(res){
 export async function postWSI4PointRelaisRecherche(body){
     const urlSection = "WSI4_PointRelais_Recherche"
     // ToDo : add conversion json to xml here
-    const result = await postRequest(jsonToXml(body), urlSection)
+    const xmlBody = await jsonToXml(body)
+    const result = await postRequest(xmlBody, urlSection)
     return isNotErrorStatus(result)
 }
